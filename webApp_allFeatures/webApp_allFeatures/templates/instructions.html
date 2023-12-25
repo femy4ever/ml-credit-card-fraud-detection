@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Credit Card Fraud Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .step {
+            text-align: center;
+            flex: 1; 
+            padding: 0 10px;
+        }
+
+        .step img {
+            max-width: 100%; 
+            height: auto; 
+            margin-bottom: 20px;
+        }
+
+        .step p {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .hover-zoom {
+            width: 150px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .hover-zoom:hover {
+            transform: scale(1.20);
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .hover-zoom {
+            width: 150px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .hover-zoom:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Credit Card Fraud Detection</h1>
+        <div class="intro">
+            <p>This web app helps detect credit card fraud. Here's how it works:</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <a href="/static/images/first.png" data-lightbox="image-group" data-title="Step 1: Describe the first step here...">
+                    <img src="/static/images/first.png" alt="Step 1" class="hover-zoom">
+                </a>
+                <p>Step 1: Make sure to have downloaded the repo. Then open a terminal window, Navigate to the directory where app.py is located and run locally.</p>
+            </div>
+            <div class="step">
+                <a href="/static/images/second.png" data-lightbox="image-group" data-title="Step 2: Describe the second step here...">
+                    <img src="/static/images/second.png" alt="Step 2" class="hover-zoom">
+                </a>
+                <p>Step 2: Now when it starts running, Use the link from the terminal (localhost:5000 or http://127.0.0.1:5000), open in a browser and Input your data in the fields provided, Then click <strong>Predict</strong> below. </p>
+            </div>
+            <div class="step">
+                <a href="/static/images/third.png" data-lightbox="image-group" data-title="Step 3: Describe the third step here...">
+                    <img src="/static/images/third.png" alt="Step 3" class="hover-zoom">
+                </a>
+                <p>Step 3: Once the prediction prompt opens with the prediction result, close or reset to repeat process.</p>
+            </div>
+        </div>
+        <a href="/about" class="btn btn-secondary">About project</a>
+        <a href="/" class="btn btn-primary">Back to Predictions</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+</body>
+</html>
