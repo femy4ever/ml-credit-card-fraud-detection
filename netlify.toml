@@ -1,0 +1,27 @@
+[build]
+  # Set build settings
+  command = "npm run build"  # Specify the build command
+  publish = "build/"         # Specify the directory to publish after build
+
+[[redirects]]
+  # Redirects configuration
+  from = "/old-path"         # Redirect from this URL
+  to = "/new-path"           # Redirect to this URL
+  status = 301               # Redirect status code
+
+[context.production.environment]
+  # Set environment variables for production
+  API_KEY = "your_api_key_here"
+  NODE_ENV = "production"
+
+[context.deploy-preview]
+  # Configuration for deploy previews (e.g., pull/merge requests)
+  command = "npm run build:preview"
+  publish = "build/preview/"
+
+[[headers]]
+  # Set custom headers
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
