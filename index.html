@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Fraud Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #c2cbed;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background-color: #6c6565;
+        }
+
+        .navbar-brand {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .navbar-nav {
+            font-size: 25px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="float"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 30px;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #predictionModal .modal-dialog {
+            max-width: 400px;
+        }
+
+        .disclaimer {
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Welcome to the Credit Card Fraud Detector</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/instructions">How it works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About authors</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="modal fade" id="predictionModal" tabindex="-1" role="dialog" aria-labelledby="predictionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="predictionModalLabel">Prediction Result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="resultMessage"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="resetPrediction">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container mt-4">
+        <h3>Please Input your data in fields below:</h3>
+        <form id="predictionForm">
+            <label for="time">Time:</label>
+            <input type="text" id="time" name="time" value="0"><br><br>
+
+            <label for="v1">V1:</label>
+            <input type="text" id="v1" name="v1" value="0"><br><br>
+
+            <label for="v2">V2:</label>
+            <input type="text" id="v2" name="v2" value="0"><br><br>
+
+            <label for="v3">V3:</label>
+            <input type="text" id="v3" name="v3" value="0"><br><br>
+
+            <label for="v4">V4:</label>
+            <input type="text" id="v4" name="v4" value="0"><br><br>
+
+            <label for="v5">V5:</label>
+            <input type="text" id="v5" name="v5" value="0"><br><br>
+
+            <label for="v7">V7:</label>
+            <input type="text" id="v7" name="v7" value="0"><br><br>
+
+            <label for="v9">V9:</label>
+            <input type="text" id="v9" name="v9" value="0"><br><br>
+
+            <label for="v10">V10:</label>
+            <input type="text" id="v10" name="v10" value="0"><br><br>
+
+            <label for="v11">V11:</label>
+            <input type="text" id="v11" name="v11" value="0"><br><br>
+
+            <label for="v12">V12:</label>
+            <input type="text" id="v12" name="v12" value="0"><br><br>
+
+            <label for="v14">V14:</label>
+            <input type="text" id="v14" name="v14" value="0"><br><br>
+
+            <label for="v16">V16:</label>
+            <input type="text" id="v16" name="v16" value="0"><br><br>
+
+            <label for="v17">V17:</label>
+            <input type="text" id="v17" name="v17" value="0"><br><br>
+
+            <label for="v18">V18:</label>
+            <input type="text" id="v18" name="v18" value="0"><br><br>
+
+            <label for="amount">Amount:</label>
+            <input type="text" id="amount" name="amount" value="1000"><br><br>
+
+            <input type="submit" value="Predict">
+        </form>
+        <p id="result"></p>
+
+        <script>
+            document.getElementById('predictionForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const time = document.getElementById('time').value;
+                const v1 = document.getElementById('v1').value;
+                const v2 = document.getElementById('v2').value;
+                const v3 = document.getElementById('v3').value;
+                const v4 = document.getElementById('v4').value;
+                const v5 = document.getElementById('v5').value;
+                const v7 = document.getElementById('v7').value;
+                const v9 = document.getElementById('v9').value;
+                const v10 = document.getElementById('v10').value;
+                const v11 = document.getElementById('v11').value;
+                const v12 = document.getElementById('v12').value;
+                const v14 = document.getElementById('v14').value;
+                const v16 = document.getElementById('v16').value;
+                const v17 = document.getElementById('v17').value;
+                const v18 = document.getElementById('v18').value;
+                const amount = document.getElementById('amount').value;
+
+                const payload = {
+                    "Time": parseFloat(time),
+                    "V1": parseFloat(v1),
+                    "V2": parseFloat(v2),
+                    "V3": parseFloat(v3),
+                    "V4": parseFloat(v4),
+                    "V5": parseFloat(v5),
+                    "V7": parseFloat(v7),
+                    "V9": parseFloat(v9),
+                    "V10": parseFloat(v10),
+                    "V11": parseFloat(v11),
+                    "V12": parseFloat(v12),
+                    "V14": parseFloat(v14),
+                    "V16": parseFloat(v16),
+                    "V17": parseFloat(v17),
+                    "V18": parseFloat(v18),
+                    "Amount": parseFloat(amount)
+
+                };
+
+                fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const resultMessage = document.getElementById('resultMessage');
+                    const resetPrediction = document.getElementById('resetPrediction');
+
+                    const message = `The Predicted Class is: ${data.prediction}`;
+                    resultMessage.innerText = message;
+                    $('#predictionModal').modal('show');
+
+                    resetPrediction.addEventListener('click', function() {
+                        $('#predictionModal').modal('hide');
+                        document.getElementById('predictionForm').reset();
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+            });
+                    
+        </script>
+    </div>
+    <div class="disclaimer">
+        <p>Disclaimer: This web app is for demonstration purposes only and should not be used for actual financial
+            transactions.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
